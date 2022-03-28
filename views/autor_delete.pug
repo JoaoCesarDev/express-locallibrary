@@ -1,0 +1,30 @@
+extends layout 
+
+block content 
+
+    h1 #{titulo}: #{autor.nome}
+    p= autor.lifespan
+
+    if autores_livros.length 
+
+        p #[strong Delete os seguintes livros antes de tentar deletar este autor.]
+
+        div(style='margin-left:20px;margin-top:20px;')
+
+            h4 Livros 
+
+            dl 
+            each livro in autores_livros
+                dt
+                    a(href=livro.url) #{livro.titulo}
+                dd #{livro.resumo}
+
+    else    
+        p Você realmente deseja apagar este autor?
+
+        form(method='POST' action='')
+            div.form-group
+                input#autorid.form-control(type='hidden',name='autorid', required='true', value=autor._id)
+            div
+            button.btn.btn-primary(type='submit') Apagar 
+            a(href='/catalogo/lista_autores') #[button.btn.btn-secondary(type='button' style='margin-left:1%') Lista de Autores] 

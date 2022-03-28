@@ -1,0 +1,42 @@
+extends layout 
+
+block content 
+    h1= titulo 
+
+    form(method='POST' action='')
+        div.form-group 
+            label(for='titulo') Título: 
+            input#titulo.form-control(type='text',placeholder='Nome do livro', name='titulo',require='true' value=(undefined===Livro ? '' : Livro.titulo))
+        div.form-group
+            label(for='autor') Autor:
+            select#autor.form-control(type='select', placeholder='Selecione o autor' name='autor' required='true' )
+                - autores.sort(function(a, b) {let textA = a.ultimo_nome.toUpperCase();let textB = b.ultimo_nome.toUpperCase();return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                for autor in autores
+                    if Livro
+                        option(value=autor._id selected=(autor._id.toString()==Livro.autor._id || autor._id.toString()==Livro.autor) ? 'selected' : false ) #{autor.nome}
+                    else
+                        option(value = autor._id) #{autor.nome}
+            div(style='padding-top:10px;')     
+                a(href='/catalogo/autor/create') Adicionar Autor            
+        div.form-group
+            label(for='resumo') Resumo:
+            textarea#resumo.form-control(type='textarea', placeholder='resumo' name='resumo' required='true') #{undefined===Livro ? '' : Livro.resumo}
+        div.form-group
+            label(for='isbn') ISBN:
+            input#isbn.form-control(type='text', placeholder='ISBN13' name='isbn' value=(undefined===Livro ? '' : Livro.isbn) required='true')
+        div.form-group
+            label Gênero:
+            div
+                for genero in generos
+                    div(style='display: inline; padding-right:10px;')
+                        input.checkbox-input(type='checkbox', name='genero', id=genero._id, value=genero._id, checked=genero.checked )
+                        label(for=genero._id) #{genero.nome}
+            div 
+                a(href='/catalogo/genero/create') Adicionar Gênero
+            br
+            button.btn.btn-primary(type='submit') #{botao}
+            
+    if errors
+        ul 
+            for error in errors 
+                li!= error.msg

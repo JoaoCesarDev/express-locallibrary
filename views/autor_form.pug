@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1=titulo
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='primeiro_nome') Primeiro Nome:
+      input#primeiro_nome.form-control(type='text' placeholder='Primeiro Nome (Christian) último' name='primeiro_nome' required='true' value=(undefined===autor ? '' : autor.primeiro_nome) )
+      br
+      label(for='ultimo_nome') Family Name:
+      input#ultimo_nome.form-control(type='text' placeholder='Último Nome' name='ultimo_nome' required='true' value=(undefined===autor ? '' : autor.ultimo_nome))
+    div.form-group
+      label(for='data_aniversario') Date de Aniversário:
+      input#data_aniversario.form-control(type='date' name='data_aniversario' value=(undefined===autor ? '' : autor.date_of_birth_yyyy_mm_dd) )
+      br
+      label(for='data_morte') Date de morte:
+      input#data_morte.form-control(type='date' name='data_morte' value=(undefined===autor ? '' : autor.date_of_death_yyyy_mm_dd) )
+      br
+    button.btn.btn-primary(type='submit') #{botao}
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

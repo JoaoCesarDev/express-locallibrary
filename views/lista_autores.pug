@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+    h1= title 
+
+
+    ul 
+        each autor in lista_autores
+            li 
+                a(href=autor.url) #[h6 #{autor.nome}]
+                |  (#{autor.lifespan})
+
+        else 
+            li Não há autores.
+
+    a(href='/') #[button.btn.btn-secondary(type='button') Página Inicial] 

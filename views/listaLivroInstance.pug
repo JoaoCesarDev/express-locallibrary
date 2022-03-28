@@ -1,0 +1,19 @@
+extends layout 
+
+block content 
+ h1= title 
+
+ ul 
+    each val in list_book_intances
+        li 
+            a(href=val.url) #{val.livro.titulo} : #{val.imprimir} - 
+            if val.status == 'disponível'
+                span.text-success #{val.status}
+            else if val.status == 'manutenção'
+                span.text-danger #{val.status}
+            else 
+                span.text-warning #{val.status}
+            if val.status != 'disponível'
+                span  (Vencimento: #{val.Data_Devolucao_formatada})
+    else 
+        li Não há cópia de livros nesta biblioteca.

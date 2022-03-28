@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #[em Biblioteca Local], um bem básico Express Web Site desenvolvido com o exemplo de tutorial no Mozilla Developer Network.
+
+  h1  Conteúdo Dinâmico
+
+  if error 
+    p Error em obter contagem de registros.
+  else 
+    p A Biblioteca tem as seguintes contagem de registros:
+
+    ul 
+      li #[strong Livros:] !{data.livro_count}
+      li #[strong Copias:] !{data.livroInstance_count}
+      li #[strong Copias Disponíveis:] !{data.livroInstance_disponivel_count}
+      li #[strong Autores:] !{data.autor_count}
+      li #[strong Generos:] !{data.genero_count}

@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+    h1= title 
+
+
+    ul 
+        each genero in lista_generos
+            li 
+                a(href=genero.url) #[h5 #{genero.nome}]
+
+        else 
+            li Não há gêneros.

@@ -1,0 +1,38 @@
+extends layout 
+
+block content 
+
+    h1 Titulo: #{livro.titulo}
+    
+
+    if livro_instance.length 
+
+        p #[strong Delete as seguintes Instâncias de livros antes de tentar deletar este Livro.]
+
+        div(style='margin-left:20px;margin-top:20px;')
+
+            h4 Instâncias de livros 
+
+            dl 
+            each instancia in livro_instance
+                dt
+                    a(href=instancia.url) #{instancia.livro.id}
+                dd #{instancia.livro.titulo}
+                 if instancia.status == 'disponível'
+                   span.text-success  - #{instancia.status}
+                 else if instancia.status == 'manutenção'
+                   span.text-danger  - #{instancia.status}
+                 else 
+                   span.text-warning  - #{instancia.status}
+
+
+    else    
+        p Você realmente deseja apagar este Livro?
+
+        form(method='POST' action='')
+            div.form-group
+                input#livroid.form-control(type='hidden',name='livroid', required='true', value=livro._id)
+            
+            div
+            button.btn.btn-primary(type='submit') Apagar
+            a(href='/catalogo/livros') #[button.btn.btn-secondary(type='button' style='margin-left:1%') Lista de Livros]  

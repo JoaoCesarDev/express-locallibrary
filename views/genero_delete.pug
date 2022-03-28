@@ -1,0 +1,31 @@
+extends layout 
+
+block content 
+
+    h1 #{title}: #{genero.nome}
+    
+
+    if genero_livros.length 
+
+        p #[strong Delete os seguintes livros antes de tentar deletar este gênero.]
+
+        div(style='margin-left:20px;margin-top:20px;')
+
+            h4 Livros 
+
+            dl 
+            each livro in genero_livros
+                dt
+                    a(href=livro.url) #{livro.titulo}
+                dd #{livro.resumo}
+
+    else    
+        p Você realmente deseja apagar este Gênero?
+
+        form(method='POST' action='')
+            div.form-group
+                input#generoid.form-control(type='hidden',name='generoid', required='true', value=genero._id)
+            
+            div
+            button.btn.btn-primary(type='submit') Apagar
+            a(href='/catalogo/lista_generos') #[button.btn.btn-secondary(type='button' style='margin-left:1%') Lista de Gêneros]

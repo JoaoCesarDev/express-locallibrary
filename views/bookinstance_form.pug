@@ -1,0 +1,37 @@
+extends layout 
+
+block content 
+    h1=titulo 
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='livro') Livro: 
+            select#livro.form-control(type='select' placeholder='Select book' name='livro' required='true')
+                - livros.sort(function(a, b) {let textA = a.titulo.toUpperCase(); let textB = b.titulo.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                    for livro in livros
+                        if LivroInstance
+                            option(value=livro._id selected=(livro_selecionado==livro._id.toString() ? 'selected' : false)) #{livro.titulo}
+                        else
+                            option(value=livro._id) #{livro.titulo}
+        
+        div.form-group
+            label(for='imprimir') Imprimir:
+            input#imprimir.form-control(type='text' placeholder='Publicação e a data' name='imprimir' required='true' value=(undefined===LivroInstance ? '' : LivroInstance.imprimir))
+        div.form-group
+            label(for='devolucao') Data quando o livro estiver disponível:
+            input#devolucao.form-control(type='date' name='devolucao' value=(undefined===LivroInstance ? '' : LivroInstance.Data_Devolucao_yyyy_mm_dd) )
+        
+        div.form-group
+            label(for='status') Status:
+            select#status.form-control(type='select' placeholder='Select status' name='status' required='true')
+                 option(value='manutenção' selected=(undefined===LivroInstance || LivroInstance.status!='manutenção' ? false:'selected')) Manutenção
+                 option(value='disponível' selected=(undefined===LivroInstance || LivroInstance.status!='disponível' ? false:'selected')) Disponível
+                 option(value='emprestado' selected=(undefined===LivroInstance || LivroInstance.status!='emprestado' ? false:'selected')) Emprestado
+                 option(value='reservado' selected=(undefined===LivroInstance || LivroInstance.status!='reservado' ? false:'selected')) Reservado
+                       
+
+        button.btn.btn-primary(type='submit') #{botao}
+    if errors
+      ul
+        for error in errors
+          li!= error.msg

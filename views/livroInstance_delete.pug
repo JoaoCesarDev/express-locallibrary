@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+
+ h1 #{title}: #{livroInstance.livro.id}
+
+ p Você realmente deseja apagar esta Instância de Livro?
+
+        form(method='POST' action='')
+            div.form-group
+                input#livroInstanceid.form-control(type='hidden',name='livroInstanceid', required='true', value=livroInstance._id)
+            
+            div
+            button.btn.btn-primary(type='submit') Apagar
+            a(href='/catalogo/livroinstances') #[button.btn.btn-secondary(type='button' style='margin-left:1%') Lista de Instâncias de Livros]

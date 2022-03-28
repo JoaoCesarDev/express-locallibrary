@@ -1,0 +1,26 @@
+extends layout 
+
+block content 
+
+    h1 ID: #{livroInstance._id}
+
+    p #[strong Titulo: ]
+        a(href=livroInstance.livro.url) #{livroInstance.livro.titulo}
+    p #[strong Impressão:] #{livroInstance.imprimir}
+
+    p #[strong status: ]
+        if livroInstance.status == 'disponível'
+            span.text-sucess #{livroInstance.status}
+        else if livroInstance.status == 'manutenção'
+            span.text-danger #{livroInstance.status}
+        else 
+            span.text-warning #{livroInstance.status}
+    
+    if livroInstance.status != 'disponível'
+        p #[strong Devolução:] #{livroInstance.Data_Devolucao_formatada}
+
+    hr
+    p
+      a(href=livroInstance.url + '/delete') Apagar Instância de Livro
+      P 
+      a(href=livroInstance.url + '/update') Atualizar Instância de Livro
