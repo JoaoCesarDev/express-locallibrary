@@ -1,6 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
-const dbConfig = require("./Config/config.db");
+//const dbConfig = require("./Config/config.db");
 var mongoose = require('mongoose');
 var mongoDB = process.env.MONGODB_URI || 'mongodb://joao:jcbest41@localhost:27017/biblioteca_local?authSource=biblioteca_local';
 var path = require('path');
